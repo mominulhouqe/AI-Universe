@@ -35,8 +35,8 @@ const displayData = info =>{
                     <p><i class="fa-solid fa-calendar-days"></i> ${element. published_in}</p>
                 </div>
                 <div class="">
-                <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <i class="fa-solid fa-arrow-right bg-light border-5  rounded-3 p-3 text-danger"></i>
+                <button type="button" class="btn  bg-light border-5  rounded-3 p-3 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="fa-solid fa-arrow-right text-danger"></i>
   </button>
                   
                 </div>
