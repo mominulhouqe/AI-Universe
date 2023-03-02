@@ -5,14 +5,15 @@
 const loadData = () => {
     fetch('https://openapi.programming-hero.com/api/ai/tools')
         .then(res => res.json())
-        .then(data => displayData(data.data.tools))
+        .then(data => displayData(data.data.tools.slice(0,6)))
 }
 
 const displayData = info => {
     // console.log(info);
-    const divContainer = document.getElementById('div-container')
-
+    
     info.forEach(element => {
+        const divContainer = document.getElementById('div-container')
+        
 
         // console.log(element);
 
@@ -75,7 +76,7 @@ const displayDescription = descriptions => {
         <h5 class="card-text fw-bold ">${descriptions.description} </h5>
             <div class="d-flex">
             <p class="p-3 bg-light text-success">${descriptions.pricing[0].price + "<br>" +
-            descriptions.pricing[0].plan}</p>
+            descriptions.pricing[0].plan ? descriptions.pricing[0].price :'Free of Cost' }</p>
           <p class="p-3 bg-light text-warning">${descriptions.pricing[1].price + "<br>" +
             descriptions.pricing[1].plan}</p>
           <p class="p-3 bg-light text-danger">${descriptions.pricing[2].price + "<br>" +
@@ -91,9 +92,9 @@ const displayDescription = descriptions => {
                 </div>
                 <div>
                 <h4 class="mb-2">Integrations</h4>
-                  <li class="mx-2 mb-1 text-muted">${descriptions.integrations[0]} </li>
-                  <li class="mx-2 mb-1 text-muted">${descriptions.integrations[1]}</li>
-                  <li class="mx-2 mb-1 text-muted">${descriptions.integrations[2]}</li>
+                  <li class="mx-2 mb-1 text-muted">${descriptions.integrations[0] ? descriptions.integrations[0] :'No data Found'  } </li>
+                  <li class="mx-2 mb-1 text-muted">${descriptions.integrations[1] ? descriptions.integrations[0] :'No data Found'  }</li>
+                  <li class="mx-2 mb-1 text-muted">${descriptions.integrations[2] ? descriptions.integrations[0] :'No data Found'  }</li>
                 
                 </div>
             </div>
@@ -105,8 +106,8 @@ const displayDescription = descriptions => {
    <img src=" ${descriptions.image_link[0]}" class="img-fluid"  alt="...">
   <div class="text-center mt-2">
    
-  <p class="fw-bolder">${descriptions.input_output_examples[0].input}</p>
-  <p class="small">${descriptions.input_output_examples[0].output}</p>
+  <p class="fw-bolder">${descriptions.input_output_examples[0].input ? descriptions.input_output_examples[0].input : 'Can you give any example?'}</p>
+  <p class="small">${descriptions.input_output_examples[0].output ? descriptions.input_output_examples[0].output :'No! Not Yet! Take a break!!!' }</p>
 
   </div>
    </div>
@@ -117,6 +118,14 @@ const displayDescription = descriptions => {
 
     modalContainer.appendChild(div2);
 
+}
+const seeBtn = () =>{
+
+    fetch('https://openapi.programming-hero.com/api/ai/tools')
+    .then(res => res.json())
+    .then(data => displayData(data.data.tools))
+    
+    
 }
 
 
