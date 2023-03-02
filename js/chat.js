@@ -117,9 +117,9 @@ const displayDescription = descriptions => {
 
     modalContainer.appendChild(div2);
 
-
-
 }
+
+
 
 
 loadData();
