@@ -14,9 +14,8 @@
 
 
 const loadCardsData = (dataLimit) => {
-
-    // data load
-
+    
+   // data load
     toggleLoader(true);
 
     fetch(`https://openapi.programming-hero.com/api/ai/tools?limit=${dataLimit}`)
@@ -25,10 +24,12 @@ const loadCardsData = (dataLimit) => {
             data.data.tools.sort((a, b) => {
                 return a.name.localeCompare(b.name);
             });
-            displayData(data.data.tools);
+            displayData(data.data.tools, dataLimit);
+         
+            // loader stop
+     toggleLoader(false);
+
         });
-           // loader stop
-    toggleLoader(false);
 
 };
 
@@ -96,8 +97,8 @@ const displayData = (info, dataLimit) => {
 
 // Card Element End here
 }
+
 // added See all Button
- 
 document.getElementById("see-more-btn").addEventListener("click", function () {
   
     // set card  container children length
@@ -107,14 +108,6 @@ document.getElementById("see-more-btn").addEventListener("click", function () {
     loadCardsData(dataLimit);
   });
   
-// const showAllBtn = document.getElementById('show-all-btn');
-// showAllBtn.addEventListener('click', async () => {
-//   const url = `https://openapi.programming-hero.com/api/ai/tools`;
-//   const res = await fetch(url);
-//   const data = await res.json();
-//   loadCardsData(data.data.tools.slice(0,6)); // Show all 12 tools
-//   showAllBtn.style.display = 'none'; // Hide "show all" button
-// });
 
 
 // Modal Element Here And Added step by step
