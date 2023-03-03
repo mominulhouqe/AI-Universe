@@ -14,32 +14,13 @@ const loadCardsData = async (dataLimit) => {
   };
  
 
-/*  const loadCardsData = (dataLimit) => {
-    
-   // data load
-    toggleLoader(true);
 
-    fetch(`https://openapi.programming-hero.com/api/ai/tools?limit=${dataLimit}`)
-        .then(res => res.json())
-        .then(data => {
-            data.data.tools.sort((a, b) => {
-                return a.name.localeCompare(b.name);
-            });
-            displayData(data.data.tools, dataLimit);
-         
-            // loader stop
-     toggleLoader(false);
-
-        });
-
-};
-  */
-
-// myarray.sort((a,b) => b.age - a.age)
 
 const displayData = (info, dataLimit) => {
 
     const divContainer = document.getElementById('div-container')
+
+    divContainer.innerHTML = '';
 
       // display dataLimit number of cards by default
       const seeMore = document.getElementById("see-more");
@@ -52,14 +33,13 @@ const displayData = (info, dataLimit) => {
     
 
       // clear the existing info
-      divContainer.innerHTML = '';
+    
     // console.log(info);
     
     // Display All Container Data
 
     info.forEach((element) => {
 
-      
         // card Element here
 
         const div = document.createElement('div');
@@ -125,16 +105,24 @@ const showDescription = (id) => {
     fetch(`https://openapi.programming-hero.com/api/ai/tool/${id<10?'0':''}${id}`)
     
       .then(res => res.json())
-      .then(data => displayDescription(data.data))
+      .then(data => displayDescription(data.data , data.data.pricing))
 }
 
 
+
 // Displaying Modal Card Componnents
-const displayDescription = descriptions => {
+const displayDescription = (descriptions , price)=> {
+  console.log(price[0]);
+
+// ${descriptions.pricing[2].price + "<br>" +
+// descriptions.pricing[2].plan ? descriptions.pricing[2].price +"<br>" + descriptions.pricing[2].plan :'Free of Cost' }
+
 
     // modal Body here
     const modalContainer = document.getElementById('modal-description');
- modalContainer.innerHTML = '';
+
+    modalContainer.innerHTML = '';
+
     const div2 = document.createElement('div');
     div2.innerHTML = `
     <div class="row">
@@ -144,20 +132,18 @@ const displayDescription = descriptions => {
             <div class="d-flex">
 
             <p class="p-3 bg-light text-success">
-            ${descriptions.pricing[0].price + "<br>" +
-            descriptions.pricing[0].plan ? descriptions.pricing[0].price +"<br>" + descriptions.pricing[0].plan :'Free of Cost' }
+            ${price[0].price ? price[0].price: 'Free of Cost'} ${price[0].plan ? price[0].plan :''}
             
+
             </p>
           <p class="p-3 bg-light text-warning">
           
-          ${descriptions.pricing[1].price + "<br>" +
-          descriptions.pricing[1].plan ? descriptions.pricing[1].price +"<br>" + descriptions.pricing[1].plan :'Free of Cost' }
+          ${price[1].price ? price[1].price: 'Free of Cost'} ${price[1].plan ? price[1].plan :''}
             
             </p>
           <p class="p-3 bg-light text-danger">
-          
-          ${descriptions.pricing[2].price + "<br>" +
-            descriptions.pricing[2].plan ? descriptions.pricing[2].price +"<br>" + descriptions.pricing[2].plan :'Free of Cost' }
+          ${price[2].price.slice(0,10) ? price[2].price: 'Free of Cost'} ${price[2].plan ? price[2].plan :''}
+            
             
             </p>
             </div>
