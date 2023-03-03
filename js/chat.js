@@ -1,7 +1,4 @@
-
-
-
-const loadCardsData = async (dataLimit) => {
+/* const loadCardsData = async (dataLimit) => {
 
     // loader start
     toggleLoader(true);
@@ -11,10 +8,31 @@ const loadCardsData = async (dataLimit) => {
     const data = await res.json();
     displayData(data.data.tools, dataLimit);
     
-    // loader stop
-    toggleLoader(false);
-  };
+ 
+  }; */
   
+
+
+const loadCardsData = (dataLimit) => {
+
+    // data load
+
+    toggleLoader(true);
+
+    fetch(`https://openapi.programming-hero.com/api/ai/tools?limit=${dataLimit}`)
+        .then(res => res.json())
+        .then(data => {
+            data.data.tools.sort((a, b) => {
+                return a.name.localeCompare(b.name);
+            });
+            displayData(data.data.tools);
+        });
+           // loader stop
+    toggleLoader(false);
+
+};
+
+
 
 const displayData = (info, dataLimit) => {
 
@@ -28,7 +46,6 @@ const displayData = (info, dataLimit) => {
       } else {
         seeMore.classList.add("d-none");
       }
-    
     
       // clear the existing info
       divContainer.innerHTML = '';
@@ -62,7 +79,7 @@ const displayData = (info, dataLimit) => {
                     <p><i class="fa-solid fa-calendar-days"></i> ${element.published_in}</p>
                 </div>
                 <div class="">
-                <button onclick="showDescription(${element.id})" type="button" class="btn  bg-light border-5  rounded-3 p-3 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button onclick="showDescription(${element.id ? element.id: 'No data Found'})" type="button" class="btn  bg-light border-5  rounded-3 p-3 " data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="fa-solid fa-arrow-right text-danger"></i>
   </button>
                   
@@ -89,11 +106,22 @@ document.getElementById("see-more-btn").addEventListener("click", function () {
     // pass dataLimite parameter in loadCardData function
     loadCardsData(dataLimit);
   });
+  
+// const showAllBtn = document.getElementById('show-all-btn');
+// showAllBtn.addEventListener('click', async () => {
+//   const url = `https://openapi.programming-hero.com/api/ai/tools`;
+//   const res = await fetch(url);
+//   const data = await res.json();
+//   loadCardsData(data.data.tools.slice(0,6)); // Show all 12 tools
+//   showAllBtn.style.display = 'none'; // Hide "show all" button
+// });
 
 
 // Modal Element Here And Added step by step
 const showDescription = (id) => {
-  fetch(`https://openapi.programming-hero.com/api/ai/tool/0${id}`)
+    
+    fetch(`https://openapi.programming-hero.com/api/ai/tool/${id<10?'0':''}${id}`)
+    
       .then(res => res.json())
       .then(data => displayDescription(data.data))
 }
@@ -110,28 +138,40 @@ const displayDescription = descriptions => {
     <div class="row">
     <div class="col-6 ">
         <div class="card p-3">
-        <h5 class="card-text fw-bold ">${descriptions.description} </h5>
+        <h5 class="card-text fw-bold ">${descriptions.description ? descriptions.description:'Sorry no data found'} </h5>
             <div class="d-flex">
-            <p class="p-3 bg-light text-success">${descriptions.pricing[0].price + "<br>" +
-            descriptions.pricing[0].plan ? descriptions.pricing[0].price :'Free of Cost' }</p>
-          <p class="p-3 bg-light text-warning">${descriptions.pricing[1].price + "<br>" +
-            descriptions.pricing[1].plan}</p>
-          <p class="p-3 bg-light text-danger">${descriptions.pricing[2].price + "<br>" +
-            descriptions.pricing[2].plan}</p>
+
+            <p class="p-3 bg-light text-success">
+            ${descriptions.pricing[0].price + "<br>" +
+            descriptions.pricing[0].plan ? descriptions.pricing[0].price +"<br>" + descriptions.pricing[0].plan :'Free of Cost' }
+            
+            </p>
+          <p class="p-3 bg-light text-warning">
+          
+          ${descriptions.pricing[1].price + "<br>" +
+          descriptions.pricing[1].plan ? descriptions.pricing[1].price +"<br>" + descriptions.pricing[1].plan :'Free of Cost' }
+            
+            </p>
+          <p class="p-3 bg-light text-danger">
+          
+          ${descriptions.pricing[2].price + "<br>" +
+            descriptions.pricing[2].plan ? descriptions.pricing[2].price +"<br>" + descriptions.pricing[2].plan :'Free of Cost' }
+            
+            </p>
             </div>
             <div class="d-flex justify-content-between"> 
                 <div>
                     <h4 class="mb-2">Features</h4>
-                    <li class="mx-2 mb-1 text-muted" > ${descriptions.features[1].feature_name}</li>
-                    <li class="mx-2 mb-1 text-muted">${descriptions.features[2].feature_name}</li>
-                    <li class="mx-2 mb-1 text-muted"> ${descriptions.features[3].feature_name} </li>
+                    <li class="mx-2 mb-1 text-muted" > ${descriptions.features[1].feature_name ? descriptions.features[1].feature_name:'Name Not Found' }</li>
+                    <li class="mx-2 mb-1 text-muted">${descriptions.features[2].feature_name ? descriptions.features[2].feature_name:'Name Not Found'}</li>
+                    <li class="mx-2 mb-1 text-muted"> ${descriptions.features[3].feature_name ? descriptions.features[3].feature_name:'Name Not Found'} </li>
                 
                 </div>
                 <div>
                 <h4 class="mb-2">Integrations</h4>
                   <li class="mx-2 mb-1 text-muted">${descriptions.integrations[0] ? descriptions.integrations[0] :'No data Found'  } </li>
-                  <li class="mx-2 mb-1 text-muted">${descriptions.integrations[1] ? descriptions.integrations[0] :'No data Found'  }</li>
-                  <li class="mx-2 mb-1 text-muted">${descriptions.integrations[2] ? descriptions.integrations[0] :'No data Found'  }</li>
+                  <li class="mx-2 mb-1 text-muted">${descriptions.integrations[1] ? descriptions.integrations[1] :'No data Found'  }</li>
+                  <li class="mx-2 mb-1 text-muted">${descriptions.integrations[2] ? descriptions.integrations[2] :'No data Found'  }</li>
                 
                 </div>
             </div>
@@ -140,11 +180,13 @@ const displayDescription = descriptions => {
 
     <div class="col-6">
    <div class="card p-2">
-   <img src=" ${descriptions.image_link[0] ? descriptions.image_link[0]: 'Not Availabe img'}" class="img-fluid"  alt="...">
+   
+   <img src="${descriptions.image_link[0] ? descriptions.image_link[0]:'No found Image' } " class="img-fluid"  alt="...">
+   <img src="${descriptions.image_link[1] ? descriptions.image_link[1]:'No found Image'  } " class="img-fluid"  alt="...">
   <div class="text-center mt-2">
    
   <p class="fw-bolder">${descriptions.input_output_examples[0].input ? descriptions.input_output_examples[0].input : 'Can you give any example?'}</p>
-  <p class="small">${descriptions.input_output_examples[0].output ? descriptions.input_output_examples[0].output :'No! Not Yet! Take a break!!!' }</p>
+  <p class="small">${descriptions.input_output_examples[1].output ? descriptions.input_output_examples[1].output :'No! Not Yet! Take a break!!!' }</p>
 
   </div>
    </div>
