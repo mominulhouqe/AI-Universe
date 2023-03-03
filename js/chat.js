@@ -1,32 +1,58 @@
 
 
 
+const loadCardsData = async (dataLimit) => {
 
-const loadData = () => {
-    fetch('https://openapi.programming-hero.com/api/ai/tools')
-        .then(res => res.json())
-        .then(data => displayData(data.data.tools.slice(0,6)))
-}
+    // loader start
+    toggleLoader(true);
+  
+    const url = `https://openapi.programming-hero.com/api/ai/tools?limit=${dataLimit}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayData(data.data.tools, dataLimit);
+    
+    // loader stop
+    toggleLoader(false);
+  };
+  
 
-const displayData = info => {
+const displayData = (info, dataLimit) => {
+
+    const divContainer = document.getElementById('div-container')
+
+      // display dataLimit number of cards by default
+      const seeMore = document.getElementById("see-more");
+      if (info.length > dataLimit) {
+        info = info.slice(0, dataLimit);
+        seeMore.classList.remove("d-none");
+      } else {
+        seeMore.classList.add("d-none");
+      }
+    
+    
+      // clear the existing info
+      divContainer.innerHTML = '';
     // console.log(info);
     
-    info.forEach(element => {
-        const divContainer = document.getElementById('div-container')
-        
+    // Display All Container Data
 
-        // console.log(element);
 
-        const div = document.createElement('col');
+    info.forEach((element) => {
+
+      
+        // card Element here
+
+        const div = document.createElement('div');
+        div.classList.add('col');
         div.innerHTML = `
        
         <div class="card">
             <img src="${element.image ? element.image : 'Not Avaible Picture'}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title fw-bold">Features:</h5>
-                <p>1.${element.features[0] ? element.features[0] : 'Not Availble features'}</p>
-                <p>2.${element.features[1] ? element.features[1] : 'Not Availble features'}</p>
-                <p>3.${element.features[2] ? element.features[2] : 'Not Availble features'}</p>
+                <ol>${element.features[0] ? element.features[0] : 'Not Availble features'}</ol>
+                <ol>${element.features[1] ? element.features[1] : 'Not Availble features'}</ol>
+                <ol>${element.features[2] ? element.features[2] : 'Not Availble features'}</ol>
     
             </div>
             <hr>
@@ -51,23 +77,34 @@ const displayData = info => {
 
     });
 
-
+// Card Element End here
 }
+// added See all Button
+ 
+document.getElementById("see-more-btn").addEventListener("click", function () {
+  
+    // set card  container children length
+    const dataLimit = document.getElementById("div-container").children.length + 6;
+  
+    // pass dataLimite parameter in loadCardData function
+    loadCardsData(dataLimit);
+  });
 
+
+// Modal Element Here And Added step by step
 const showDescription = (id) => {
-    fetch(`https://openapi.programming-hero.com/api/ai/tool/0${id}`)
-        .then(res => res.json())
-        .then(data => displayDescription(data.data))
+  fetch(`https://openapi.programming-hero.com/api/ai/tool/0${id}`)
+      .then(res => res.json())
+      .then(data => displayDescription(data.data))
 }
 
+
+// Displaying Modal Card Componnents
 const displayDescription = descriptions => {
 
-
-    const modalContainer = document.getElementById('modal-description')
-    modalContainer.innerHTML = ''
-
-    // console.log(descriptions.integrations[1]);
-
+    // modal Body here
+    const modalContainer = document.getElementById('modal-description');
+ modalContainer.innerHTML = '';
     const div2 = document.createElement('div');
     div2.innerHTML = `
     <div class="row">
@@ -103,7 +140,7 @@ const displayDescription = descriptions => {
 
     <div class="col-6">
    <div class="card p-2">
-   <img src=" ${descriptions.image_link[0]}" class="img-fluid"  alt="...">
+   <img src=" ${descriptions.image_link[0] ? descriptions.image_link[0]: 'Not Availabe img'}" class="img-fluid"  alt="...">
   <div class="text-center mt-2">
    
   <p class="fw-bolder">${descriptions.input_output_examples[0].input ? descriptions.input_output_examples[0].input : 'Can you give any example?'}</p>
@@ -119,16 +156,6 @@ const displayDescription = descriptions => {
     modalContainer.appendChild(div2);
 
 }
-const seeBtn = () =>{
-
-    fetch('https://openapi.programming-hero.com/api/ai/tools')
-    .then(res => res.json())
-    .then(data => displayData(data.data.tools))
-    
-    
-}
 
 
-
-
-loadData();
+loadCardsData(6);
