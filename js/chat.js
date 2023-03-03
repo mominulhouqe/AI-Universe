@@ -1,4 +1,5 @@
-/* const loadCardsData = async (dataLimit) => {
+
+const loadCardsData = async (dataLimit) => {
 
     // loader start
     toggleLoader(true);
@@ -8,12 +9,12 @@
     const data = await res.json();
     displayData(data.data.tools, dataLimit);
     
+    // loader stop
+    toggleLoader(false);
+  };
  
-  }; */
-  
 
-
-const loadCardsData = (dataLimit) => {
+/*  const loadCardsData = (dataLimit) => {
     
    // data load
     toggleLoader(true);
@@ -32,8 +33,9 @@ const loadCardsData = (dataLimit) => {
         });
 
 };
+  */
 
-
+// myarray.sort((a,b) => b.age - a.age)
 
 const displayData = (info, dataLimit) => {
 
@@ -48,12 +50,12 @@ const displayData = (info, dataLimit) => {
         seeMore.classList.add("d-none");
       }
     
+
       // clear the existing info
       divContainer.innerHTML = '';
     // console.log(info);
     
     // Display All Container Data
-
 
     info.forEach((element) => {
 
@@ -97,6 +99,13 @@ const displayData = (info, dataLimit) => {
 
 // Card Element End here
 }
+document.getElementById('sort').addEventListener('click', function(){
+    //    info.sort((a,b) => a.dataLimit - b.dataLimit);
+    //    loadCardsData(dataLimit)
+    const sortBy = document.getElementById('sorted');
+    loadCardsData(sortBy)
+    console.log(loadCardsData(sortBy));
+    })
 
 // added See all Button
 document.getElementById("see-more-btn").addEventListener("click", function () {
