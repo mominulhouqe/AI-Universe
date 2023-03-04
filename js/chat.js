@@ -141,8 +141,8 @@ const displayDescription = (descriptions, prices) => {
 
             </p>
             </div>
-            <div class="d-flex justify-content-between"> 
-                <div>
+            <div class="d-flex flex-wrap justify-content-between"> 
+                <div d-flex flex-wrap>
                     <h4 class="mb-2">Features</h4>
                     <li class="mx-2 mb-1 text-muted" > ${descriptions.features[1].feature_name ? descriptions.features[1].feature_name : 'Name Not Found'}</li>
                     <li class="mx-2 mb-1 text-muted">${descriptions.features[2].feature_name ? descriptions.features[2].feature_name : 'Name Not Found'}</li>
@@ -162,10 +162,10 @@ const displayDescription = (descriptions, prices) => {
         </div>
     </div>
 
-    <div class="col-6 mx-auto">
+    <div class="col-12 col-md-6 mx-auto">
    <div class="card p-2  position-relative ">
    
-   <img src="${descriptions.image_link[0] ? descriptions.image_link[0] : 'No found Image'}" class="img-fluid" alt="..." onerror="this.onerror=null;this.src='not_found.jpg';this.alt='Image not found';">
+   <img src="${descriptions.image_link[0] ? descriptions.image_link[0] : 'No found Image'}" class="w-100" alt="..." onerror="this.onerror=null;this.src='not_found.jpg';this.alt='Image not found';">
 
 
   <div class="text-center mt-2">
@@ -175,7 +175,7 @@ const displayDescription = (descriptions, prices) => {
   <p class="small">${descriptions.input_output_examples && descriptions.input_output_examples.length ? descriptions.input_output_examples[0].input : 'No examples available.'}</p>
   
   <div class="position-absolute top-0 end-0 bg-danger text-white">
-  <button class="btn" style="${descriptions.accuracy.score !== null ? '' : 'display: none;'}">${descriptions.accuracy.score !== null ? descriptions.accuracy.score * 100 : ''}% accuracy</button>
+  <button class="btn btn-primary" style="${descriptions.accuracy.score !== null ? '' : 'display: none;'}">${descriptions.accuracy.score !== null ? descriptions.accuracy.score * 100 : ''}% accuracy</button>
 </div>
 
 
