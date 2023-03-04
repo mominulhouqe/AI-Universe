@@ -117,47 +117,46 @@ const displayDescription = (descriptions, prices) => {
     // modal Body here
     const modalContainer = document.getElementById('modal-description');
 
-    
     modalContainer.innerHTML = '';
-    console.log(descriptions.features[1].feature_name);
+  
 
     const div2 = document.createElement('div');
     div2.innerHTML = `
     <div class="row mx-auto">
     <div class="col-12 col-md-6 ">
-        <div class="card p-3">
+        <div class="card p-2">
         <h5 class="card-text fw-bold ">${descriptions.description ? descriptions.description : 'Sorry no data found'} </h5>
             <div class="d-flex ">
 
-            <p class="p-3 bg-light text-success">
+            <p class="p-2 bg-light text-success">
             ${prices && prices.length > 0 && prices[0].price !== null ? prices[0].price : 'Price not available'} ${prices && prices.length > 0 && prices[0].plan !== null ? prices[0].plan : ''}
 
             </p>
-          <p class="p-3 bg-light text-warning">
+          <p class="p-2 bg-light text-warning">
           ${prices && prices.length > 0 && prices[1].price !== null ? prices[1].price : 'Price not available'} ${prices && prices.length > 0 && prices[1].plan !== null ? prices[1].plan : ''}
 
             </p>
-          <p class="p-3 bg-light text-danger">
+          <p class=" p-2 bg-light text-danger">
           ${prices && prices.length > 0 && prices[2].price !== null ? prices[2].price : 'Price not available'} ${prices && prices.length > 0 && prices[2].plan !== null ? prices[2].plan : ''}
 
             </p>
             </div>
-            <div class="d-flex flex-wrap justify-content-between"> 
-                <div d-flex flex-wrap>
+            <div class="d-flex  flex-wrap"> 
+                <div>
                     <h4 class="mb-2">Features</h4>
-                    <li class="mx-2 mb-1 text-muted" > ${descriptions.features[1].feature_name ? descriptions.features[1].feature_name : 'Name Not Found'}</li>
-                    <li class="mx-2 mb-1 text-muted">${descriptions.features[2].feature_name ? descriptions.features[2].feature_name : 'Name Not Found'}</li>
-                    <li class="mx-2 mb-1 text-muted"> ${descriptions.features[3].feature_name ? descriptions.features[3].feature_name : 'Name Not Found'} </li>
+                    <li class=" mb-1 text-muted" > ${descriptions.features[1].feature_name ? descriptions.features[1].feature_name : 'Name Not Found'}</li>
+                    <li class=" mb-1 text-muted">${descriptions.features[2].feature_name ? descriptions.features[2].feature_name : 'Name Not Found'}</li>
+                    <li class=" mb-1 text-muted"> ${descriptions.features[3].feature_name ? descriptions.features[3].feature_name : 'Name Not Found'} </li>
                 
                 </div>
-                <div>
-                <h4 class="mb-2">Integrations</h4>
-                <li class="mx-2 mb-1 text-muted">
-                ${descriptions.integrations ? descriptions.integrations : 'No data Found'}</li>
 
-                  <li class="mx-2 mb-1 text-muted"> ${descriptions.integrations ? descriptions.integrations : 'No data Found'}</li>
-                  <li class="mx-2 mb-1 text-muted"> ${descriptions.integrations ? descriptions.integrations : 'No data Found'}</li>
-                
+                <div class="">
+                <h4 class="mb-2">Integrations</h4>
+                <ol class="mx-2 mb-1 text-muted">
+
+                ${descriptions.integrations ? descriptions.integrations : 'No data Found'} <br> </ol>
+
+                  
                 </div>
             </div>
         </div>
