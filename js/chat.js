@@ -128,7 +128,7 @@ const displayDescription = (descriptions , price)=> {
 
     const div2 = document.createElement('div');
     div2.innerHTML = `
-    <div class="row">
+    <div class="row mx-auto">
     <div class="col-12 col-md-6 ">
         <div class="card p-3">
         <h5 class="card-text fw-bold ">${descriptions.description ? descriptions.description:'Sorry no data found'} </h5>
@@ -169,7 +169,7 @@ const displayDescription = (descriptions , price)=> {
         </div>
     </div>
 
-    <div class="col-6">
+    <div class="col-6 mx-auto">
    <div class="card p-2">
    
    <img src="${descriptions.image_link[0] ? descriptions.image_link[0]:'No found Image' } " class="img-fluid"  alt="...">
