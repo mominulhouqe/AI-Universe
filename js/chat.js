@@ -42,9 +42,9 @@ const displayData = (info, dataLimit) => {
                 <img src="${element.image ? element.image : 'Not Available Picture'}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title fw-bold">Features:</h5>
-                    <ol>${element.features[0] ? element.features[0] : 'Not Available features'}</ol>
-                    <ol>${element.features[1] ? element.features[1] : 'Not Available features'}</ol>
-                    <ol>${element.features[2] ? element.features[2] : 'Not Available features'}</ol>
+                    <ol>1. ${element.features[0] ? element.features[0] : 'Not Available features'}</ol>
+                    <ol>2. ${element.features[1] ? element.features[1] : 'Not Available features'}</ol>
+                    <ol>3. ${element.features[2] ? element.features[2] : 'Not Available features'}</ol>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between p-2">
