@@ -79,13 +79,7 @@ const displayData = (info, dataLimit) => {
 // Card Element End here
 }
 
-/* document.getElementById('sort').addEventListener('click', function(){
-    //    info.sort((a,b) => a.dataLimit - b.dataLimit);
-    //    loadCardsData(dataLimit)
-    const sortBy = document.getElementById('sorted');
-    loadCardsData(sortBy)
-    console.log(loadCardsData(sortBy));
-    }) */
+
 
 // added See all Button
 document.getElementById("see-more-btn").addEventListener("click", function () {
@@ -118,10 +112,6 @@ const showDescription = (id) => {
 const displayDescription = (descriptions , price)=> {
 
 
-// ${descriptions.pricing[2].price + "<br>" +
-// descriptions.pricing[2].plan ? descriptions.pricing[2].price +"<br>" + descriptions.pricing[2].plan :'Free of Cost' }
-
-
     // modal Body here
     const modalContainer = document.getElementById('modal-description');
 
@@ -137,7 +127,6 @@ const displayDescription = (descriptions , price)=> {
 
             <p class="p-3 bg-light text-success">
             ${price[0].price ? price[0].price: 'Free of Cost'} ${price[0].plan ? price[0].plan :''}
-            
 
             </p>
           <p class="p-3 bg-light text-warning">
