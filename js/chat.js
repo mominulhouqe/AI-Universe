@@ -1,19 +1,5 @@
-/* 
- const loadCardsData = async (dataLimit) => {
 
-    // loader start
-    toggleLoader(true);
-  
-    const url = `https://openapi.programming-hero.com/api/ai/tools?limit=${dataLimit}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    displayData(data.data.tools, dataLimit);
-    
-    // loader stop
-    toggleLoader(false);
-  };
-  */
-  const loadCardsData = async (dataLimit) => {
+const loadCardsData = async (dataLimit) => {
 
     // loader start
     toggleLoader(true);
@@ -67,7 +53,7 @@ const displayData = (info, dataLimit) => {
                         <p><i class="fa-solid fa-calendar-days"></i> ${element.published_in}</p>
                     </div>
                     <div class="">
-                        <button onclick="showDescription(${element.id ? element.id: 'No data Found'})" type="button" class="btn bg-light border-5 rounded-3 p-3 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button onclick="showDescription(${element.id ? element.id : 'No data Found'})" type="button" class="btn bg-light border-5 rounded-3 p-3 " data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="fa-solid fa-arrow-right text-danger"></i>
                         </button>
                     </div>
@@ -82,6 +68,7 @@ const displayData = (info, dataLimit) => {
 const sortByDate = (info) => {
     info.sort((a, b) => new Date(b.published_in) - new Date(a.published_in));
 };
+
 
 // sort button event listener
 const sortBtn = document.getElementById('sort-btn');
@@ -103,52 +90,32 @@ sortBtn.addEventListener('click', () => {
 });
 
 
-
-
 // added See all Button
- document.getElementById("see-more-btn").addEventListener("click", function () {
- 
+document.getElementById("see-more-btn").addEventListener("click", function () {
+
     // set card  container children length
     const dataLimit = document.getElementById("div-container").children.length + 6;
-    
+
     // pass dataLimite parameter in loadCardData function
     loadCardsData(dataLimit);
-  });
-  
+});
 
 
-// Modal Element Here And Added step by step
+// Modal Element Here and Fetching here
 const showDescription = (id) => {
-    
-    fetch(`https://openapi.programming-hero.com/api/ai/tool/${id<10?'0':''}${id}`)
-    
-      .then(res => res.json())
-      .then(data => displayDescription(data.data , data.data.pricing))
+
+    fetch(`https://openapi.programming-hero.com/api/ai/tool/${id < 10 ? '0' : ''}${id}`)
+
+        .then(res => res.json())
+        .then(data => displayDescription(data.data, data.data.pricing))
 }
 
-/* const facbook = ()=>{
-
-}
-
- */
 // Displaying Modal Card Componnents
 
-const displayDescription = (descriptions , prices)=> {
-
+const displayDescription = (descriptions, prices) => {
 
     // modal Body here
     const modalContainer = document.getElementById('modal-description');
-
-/*    ${prices[0].price !== null ? prices[0].price: 'its not found'} ${prices[0].plan !== null? prices[0].plan :''}
-
-  ${descriptions.integrations[0] ? descriptions.integrations[0] :'No data Found'  } 
-  
- 
-${descriptions.input_output_examples[0].input ? descriptions.input_output_examples[0].input : 'Can you give any example?'} 
-
-*/
-
-
 
 
     modalContainer.innerHTML = '';
@@ -158,32 +125,37 @@ ${descriptions.input_output_examples[0].input ? descriptions.input_output_exampl
     <div class="row mx-auto">
     <div class="col-12 col-md-6 ">
         <div class="card p-3">
-        <h5 class="card-text fw-bold ">${descriptions.description ? descriptions.description:'Sorry no data found'} </h5>
+        <h5 class="card-text fw-bold ">${descriptions.description ? descriptions.description : 'Sorry no data found'} </h5>
             <div class="d-flex ">
 
             <p class="p-3 bg-light text-success">
-           
+            ${prices && prices.length > 0 && prices[0].price !== null ? prices[0].price : 'Price not available'} ${prices && prices.length > 0 && prices[0].plan !== null ? prices[0].plan : ''}
+
             </p>
           <p class="p-3 bg-light text-warning">
-        
+          ${prices && prices.length > 0 && prices[1].price !== null ? prices[1].price : 'Price not available'} ${prices && prices.length > 0 && prices[1].plan !== null ? prices[1].plan : ''}
+
             </p>
           <p class="p-3 bg-light text-danger">
-        
+          ${prices && prices.length > 0 && prices[2].price !== null ? prices[2].price : 'Price not available'} ${prices && prices.length > 0 && prices[2].plan !== null ? prices[2].plan : ''}
+
             </p>
             </div>
             <div class="d-flex justify-content-between"> 
                 <div>
                     <h4 class="mb-2">Features</h4>
-                    <li class="mx-2 mb-1 text-muted" > ${descriptions.features[1].feature_name ? descriptions.features[1].feature_name:'Name Not Found' }</li>
-                    <li class="mx-2 mb-1 text-muted">${descriptions.features[2].feature_name ? descriptions.features[2].feature_name:'Name Not Found'}</li>
-                    <li class="mx-2 mb-1 text-muted"> ${descriptions.features[3].feature_name ? descriptions.features[3].feature_name:'Name Not Found'} </li>
+                    <li class="mx-2 mb-1 text-muted" > ${descriptions.features[1].feature_name ? descriptions.features[1].feature_name : 'Name Not Found'}</li>
+                    <li class="mx-2 mb-1 text-muted">${descriptions.features[2].feature_name ? descriptions.features[2].feature_name : 'Name Not Found'}</li>
+                    <li class="mx-2 mb-1 text-muted"> ${descriptions.features[3].feature_name ? descriptions.features[3].feature_name : 'Name Not Found'} </li>
                 
                 </div>
                 <div>
                 <h4 class="mb-2">Integrations</h4>
-                  <li class="mx-2 mb-1 text-muted"> </li>
-                  <li class="mx-2 mb-1 text-muted"></li>
-                  <li class="mx-2 mb-1 text-muted"></li>
+                <li class="mx-2 mb-1 text-muted">
+                ${descriptions.integrations ? descriptions.integrations : 'No data Found'}</li>
+
+                  <li class="mx-2 mb-1 text-muted"> ${descriptions.integrations ? descriptions.integrations : 'No data Found'}</li>
+                  <li class="mx-2 mb-1 text-muted"> ${descriptions.integrations ? descriptions.integrations : 'No data Found'}</li>
                 
                 </div>
             </div>
@@ -193,15 +165,14 @@ ${descriptions.input_output_examples[0].input ? descriptions.input_output_exampl
     <div class="col-6 mx-auto">
    <div class="card p-2  position-relative ">
    
-   <img src="${descriptions.image_link[0] ? descriptions.image_link[0]:'No found Image' }" class="img-fluid" alt="..." onerror="this.onerror=null;this.src='not_found.jpg';this.alt='Image not found';">
+   <img src="${descriptions.image_link[0] ? descriptions.image_link[0] : 'No found Image'}" class="img-fluid" alt="..." onerror="this.onerror=null;this.src='not_found.jpg';this.alt='Image not found';">
 
 
   <div class="text-center mt-2">
    
   <p class="fw-bolder">
-  
-  </p>
-  <p class="small">  </p>
+ 
+  <p class="small">${descriptions.input_output_examples && descriptions.input_output_examples.length ? descriptions.input_output_examples[0].input : 'No examples available.'}</p>
   
   <div class="position-absolute top-0 end-0 bg-danger text-white">
   <button class="btn" style="${descriptions.accuracy.score !== null ? '' : 'display: none;'}">${descriptions.accuracy.score !== null ? descriptions.accuracy.score * 100 : ''}% accuracy</button>
@@ -216,23 +187,20 @@ ${descriptions.input_output_examples[0].input ? descriptions.input_output_exampl
         `
 
     modalContainer.appendChild(div2);
- return;
+    return;
 }
 
-
-
+// Sorted here 
 
 const sortData = () => {
-  // Sort data based on published date
-  const sortedData = data.data.tools.sort((a, b) => {
-    const dateA = new Date(a.published_in);
-    const dateB = new Date(b.published_in);
-    return dateB - dateA;
-  });
-  displayData(sortedData, dataLimit);
+    // Sort data based on published date
+    const sortedData = data.data.tools.sort((a, b) => {
+        const dateA = new Date(a.published_in);
+        const dateB = new Date(b.published_in);
+        return dateB - dateA;
+    });
+    displayData(sortedData, dataLimit);
 };
 
-
-
-
+// Load All data here
 loadCardsData(6);
