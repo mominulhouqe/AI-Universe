@@ -114,8 +114,9 @@ const showDescription = (id) => {
 
  */
 // Displaying Modal Card Componnents
+
 const displayDescription = (descriptions , price)=> {
-  console.log(price[0]);
+
 
 // ${descriptions.pricing[2].price + "<br>" +
 // descriptions.pricing[2].plan ? descriptions.pricing[2].price +"<br>" + descriptions.pricing[2].plan :'Free of Cost' }
@@ -170,7 +171,7 @@ const displayDescription = (descriptions , price)=> {
     </div>
 
     <div class="col-6 mx-auto">
-   <div class="card p-2">
+   <div class="card p-2  position-relative ">
    
    <img src="${descriptions.image_link[0] ? descriptions.image_link[0]:'No found Image' } " class="img-fluid"  alt="...">
 
@@ -178,6 +179,11 @@ const displayDescription = (descriptions , price)=> {
    
   <p class="fw-bolder">${descriptions.input_output_examples[0].input ? descriptions.input_output_examples[0].input : 'Can you give any example?'}</p>
   <p class="small">${descriptions.input_output_examples[1].output ? descriptions.input_output_examples[1].output :'No! Not Yet! Take a break!!!' }</p>
+  
+  <div class="position-absolute top-0 end-0 bg-danger text-white">
+  <button class="btn" style="${descriptions.accuracy.score !== null ? '' : 'display: none;'}">${descriptions.accuracy.score !== null ? descriptions.accuracy.score * 100 : ''}% accuracy</button>
+</div>
+
 
   </div>
    </div>
@@ -187,8 +193,11 @@ const displayDescription = (descriptions , price)=> {
         `
 
     modalContainer.appendChild(div2);
-
+ return;
 }
+
+
+
 
 
 loadCardsData(6);
