@@ -117,8 +117,9 @@ const displayDescription = (descriptions, prices) => {
     // modal Body here
     const modalContainer = document.getElementById('modal-description');
 
-
+    
     modalContainer.innerHTML = '';
+    console.log(descriptions.features[1].feature_name);
 
     const div2 = document.createElement('div');
     div2.innerHTML = `
@@ -170,7 +171,7 @@ const displayDescription = (descriptions, prices) => {
 
   <div class="text-center mt-2">
    
-  <p class="fw-bolder"> <p>
+  <p class="fw-bolder">${descriptions.features[1].feature_name} <p>
  
   <p class="small">${descriptions.input_output_examples && descriptions.input_output_examples.length ? descriptions.input_output_examples[0].input : 'No! Not Yet! Take a break!!!.'}</p>
   
