@@ -133,11 +133,23 @@ const showDescription = (id) => {
  */
 // Displaying Modal Card Componnents
 
-const displayDescription = (descriptions , price)=> {
+const displayDescription = (descriptions , prices)=> {
 
 
     // modal Body here
     const modalContainer = document.getElementById('modal-description');
+
+/*    ${prices[0].price !== null ? prices[0].price: 'its not found'} ${prices[0].plan !== null? prices[0].plan :''}
+
+  ${descriptions.integrations[0] ? descriptions.integrations[0] :'No data Found'  } 
+  
+ 
+${descriptions.input_output_examples[0].input ? descriptions.input_output_examples[0].input : 'Can you give any example?'} 
+
+*/
+
+
+
 
     modalContainer.innerHTML = '';
 
@@ -150,18 +162,13 @@ const displayDescription = (descriptions , price)=> {
             <div class="d-flex ">
 
             <p class="p-3 bg-light text-success">
-            ${price[0].price ? price[0].price: 'Free of Cost'} ${price[0].plan ? price[0].plan :''}
-
+           
             </p>
           <p class="p-3 bg-light text-warning">
-          
-          ${price[1].price ? price[1].price: 'Free of Cost'} ${price[1].plan ? price[1].plan :''}
-            
+        
             </p>
           <p class="p-3 bg-light text-danger">
-          ${price[2].price.slice(0,10) ? price[2].price: 'Free of Cost'} ${price[2].plan ? price[2].plan :''}
-            
-            
+        
             </p>
             </div>
             <div class="d-flex justify-content-between"> 
@@ -174,9 +181,9 @@ const displayDescription = (descriptions , price)=> {
                 </div>
                 <div>
                 <h4 class="mb-2">Integrations</h4>
-                  <li class="mx-2 mb-1 text-muted">${descriptions.integrations[0] ? descriptions.integrations[0] :'No data Found'  } </li>
-                  <li class="mx-2 mb-1 text-muted">${descriptions.integrations[1] ? descriptions.integrations[1] :'No data Found'  }</li>
-                  <li class="mx-2 mb-1 text-muted">${descriptions.integrations[2] ? descriptions.integrations[2] :'No data Found'  }</li>
+                  <li class="mx-2 mb-1 text-muted"> </li>
+                  <li class="mx-2 mb-1 text-muted"></li>
+                  <li class="mx-2 mb-1 text-muted"></li>
                 
                 </div>
             </div>
@@ -186,12 +193,15 @@ const displayDescription = (descriptions , price)=> {
     <div class="col-6 mx-auto">
    <div class="card p-2  position-relative ">
    
-   <img src="${descriptions.image_link[0] ? descriptions.image_link[0]:'No found Image' } " class="img-fluid"  alt="...">
+   <img src="${descriptions.image_link[0] ? descriptions.image_link[0]:'No found Image' }" class="img-fluid" alt="..." onerror="this.onerror=null;this.src='not_found.jpg';this.alt='Image not found';">
+
 
   <div class="text-center mt-2">
    
-  <p class="fw-bolder">${descriptions.input_output_examples[0].input ? descriptions.input_output_examples[0].input : 'Can you give any example?'}</p>
-  <p class="small">${descriptions.input_output_examples[1].output ? descriptions.input_output_examples[1].output :'No! Not Yet! Take a break!!!' }</p>
+  <p class="fw-bolder">
+  
+  </p>
+  <p class="small">  </p>
   
   <div class="position-absolute top-0 end-0 bg-danger text-white">
   <button class="btn" style="${descriptions.accuracy.score !== null ? '' : 'display: none;'}">${descriptions.accuracy.score !== null ? descriptions.accuracy.score * 100 : ''}% accuracy</button>
@@ -208,6 +218,9 @@ const displayDescription = (descriptions , price)=> {
     modalContainer.appendChild(div2);
  return;
 }
+
+
+
 
 const sortData = () => {
   // Sort data based on published date
