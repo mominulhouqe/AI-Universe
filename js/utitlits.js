@@ -8,3 +8,5 @@ const toggleLoader = (isloading) => {
       loader.classList.add("d-none");
     }
   };
+
+  

@@ -30,7 +30,6 @@ const displayData = (info, dataLimit) => {
       } else {
         seeMore.classList.add("d-none");
       }
-    
 
       // clear the existing info
     
@@ -79,13 +78,14 @@ const displayData = (info, dataLimit) => {
 
 // Card Element End here
 }
-document.getElementById('sort').addEventListener('click', function(){
+
+/* document.getElementById('sort').addEventListener('click', function(){
     //    info.sort((a,b) => a.dataLimit - b.dataLimit);
     //    loadCardsData(dataLimit)
     const sortBy = document.getElementById('sorted');
     loadCardsData(sortBy)
     console.log(loadCardsData(sortBy));
-    })
+    }) */
 
 // added See all Button
 document.getElementById("see-more-btn").addEventListener("click", function () {
@@ -108,8 +108,11 @@ const showDescription = (id) => {
       .then(data => displayDescription(data.data , data.data.pricing))
 }
 
+/* const facbook = ()=>{
 
+}
 
+ */
 // Displaying Modal Card Componnents
 const displayDescription = (descriptions , price)=> {
   console.log(price[0]);
@@ -126,10 +129,10 @@ const displayDescription = (descriptions , price)=> {
     const div2 = document.createElement('div');
     div2.innerHTML = `
     <div class="row">
-    <div class="col-6 ">
+    <div class="col-12 col-md-6 ">
         <div class="card p-3">
         <h5 class="card-text fw-bold ">${descriptions.description ? descriptions.description:'Sorry no data found'} </h5>
-            <div class="d-flex">
+            <div class="d-flex ">
 
             <p class="p-3 bg-light text-success">
             ${price[0].price ? price[0].price: 'Free of Cost'} ${price[0].plan ? price[0].plan :''}
@@ -170,7 +173,7 @@ const displayDescription = (descriptions , price)=> {
    <div class="card p-2">
    
    <img src="${descriptions.image_link[0] ? descriptions.image_link[0]:'No found Image' } " class="img-fluid"  alt="...">
-   <img src="${descriptions.image_link[1] ? descriptions.image_link[1]:'No found Image'  } " class="img-fluid"  alt="...">
+
   <div class="text-center mt-2">
    
   <p class="fw-bolder">${descriptions.input_output_examples[0].input ? descriptions.input_output_examples[0].input : 'Can you give any example?'}</p>
