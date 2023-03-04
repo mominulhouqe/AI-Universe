@@ -170,9 +170,9 @@ const displayDescription = (descriptions, prices) => {
 
   <div class="text-center mt-2">
    
-  <p class="fw-bolder">
+  <p class="fw-bolder"> <p>
  
-  <p class="small">${descriptions.input_output_examples && descriptions.input_output_examples.length ? descriptions.input_output_examples[0].input : 'No examples available.'}</p>
+  <p class="small">${descriptions.input_output_examples && descriptions.input_output_examples.length ? descriptions.input_output_examples[0].input : 'No! Not Yet! Take a break!!!.'}</p>
   
   <div class="position-absolute top-0 end-0 bg-danger text-white">
   <button class="btn btn-primary" style="${descriptions.accuracy.score !== null ? '' : 'display: none;'}">${descriptions.accuracy.score !== null ? descriptions.accuracy.score * 100 : ''}% accuracy</button>
