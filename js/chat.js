@@ -1,5 +1,5 @@
-
-const loadCardsData = async (dataLimit) => {
+/* 
+ const loadCardsData = async (dataLimit) => {
 
     // loader start
     toggleLoader(true);
@@ -12,9 +12,20 @@ const loadCardsData = async (dataLimit) => {
     // loader stop
     toggleLoader(false);
   };
- 
+  */
+  const loadCardsData = async (dataLimit) => {
 
+    // loader start
+    toggleLoader(true);
 
+    const url = `https://openapi.programming-hero.com/api/ai/tools?limit=${dataLimit}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayData(data.data.tools, dataLimit);
+
+    // loader stop
+    toggleLoader(false);
+};
 
 const displayData = (info, dataLimit) => {
 
@@ -22,21 +33,18 @@ const displayData = (info, dataLimit) => {
 
     divContainer.innerHTML = '';
 
-      // display dataLimit number of cards by default
-      const seeMore = document.getElementById("see-more");
-      if (info.length > dataLimit) {
+    // display dataLimit number of cards by default
+    const seeMore = document.getElementById("see-more");
+    if (info.length > dataLimit) {
         info = info.slice(0, dataLimit);
         seeMore.classList.remove("d-none");
-      } else {
+    } else {
         seeMore.classList.add("d-none");
-      }
+    }
 
-      // clear the existing info
-    
-    // console.log(info);
-    
+    // clear the existing info
+
     // Display All Container Data
-
     info.forEach((element) => {
 
         // card Element here
@@ -44,49 +52,65 @@ const displayData = (info, dataLimit) => {
         const div = document.createElement('div');
         div.classList.add('col');
         div.innerHTML = `
-       
-        <div class="card">
-            <img src="${element.image ? element.image : 'Not Avaible Picture'}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title fw-bold">Features:</h5>
-                <ol>${element.features[0] ? element.features[0] : 'Not Availble features'}</ol>
-                <ol>${element.features[1] ? element.features[1] : 'Not Availble features'}</ol>
-                <ol>${element.features[2] ? element.features[2] : 'Not Availble features'}</ol>
-    
-            </div>
-            <hr>
-            <div class="d-flex justify-content-between p-2">
-                <div>
-                    <h5 class="fw-bold">${element.name}</h5>
-                    <p><i class="fa-solid fa-calendar-days"></i> ${element.published_in}</p>
+            <div class="card">
+                <img src="${element.image ? element.image : 'Not Available Picture'}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">Features:</h5>
+                    <ol>${element.features[0] ? element.features[0] : 'Not Available features'}</ol>
+                    <ol>${element.features[1] ? element.features[1] : 'Not Available features'}</ol>
+                    <ol>${element.features[2] ? element.features[2] : 'Not Available features'}</ol>
                 </div>
-                <div class="">
-                <button onclick="showDescription(${element.id ? element.id: 'No data Found'})" type="button" class="btn  bg-light border-5  rounded-3 p-3 " data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <i class="fa-solid fa-arrow-right text-danger"></i>
-  </button>
-                  
+                <hr>
+                <div class="d-flex justify-content-between p-2">
+                    <div>
+                        <h5 class="fw-bold">${element.name}</h5>
+                        <p><i class="fa-solid fa-calendar-days"></i> ${element.published_in}</p>
+                    </div>
+                    <div class="">
+                        <button onclick="showDescription(${element.id ? element.id: 'No data Found'})" type="button" class="btn bg-light border-5 rounded-3 p-3 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="fa-solid fa-arrow-right text-danger"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-      </div>
-        
-        `
+        `;
         divContainer.appendChild(div);
-
-
     });
+};
 
-// Card Element End here
-}
+// sort data by date function
+const sortByDate = (info) => {
+    info.sort((a, b) => new Date(b.published_in) - new Date(a.published_in));
+};
+
+// sort button event listener
+const sortBtn = document.getElementById('sort-btn');
+sortBtn.addEventListener('click', () => {
+    const divContainer = document.getElementById('div-container');
+    const cards = divContainer.querySelectorAll('.card');
+    const sortedData = [...cards].map(card => {
+        return {
+            card,
+            date: card.querySelector('p > i.fa-solid.fa-calendar-days').nextSibling.textContent.trim()
+        }
+    }).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    sortByDate(sortedData);
+
+    sortedData.forEach((item) => {
+        divContainer.appendChild(item.card);
+    });
+});
+
 
 
 
 // added See all Button
-document.getElementById("see-more-btn").addEventListener("click", function () {
-  
+ document.getElementById("see-more-btn").addEventListener("click", function () {
+ 
     // set card  container children length
     const dataLimit = document.getElementById("div-container").children.length + 6;
-  
+    
     // pass dataLimite parameter in loadCardData function
     loadCardsData(dataLimit);
   });
@@ -185,6 +209,15 @@ const displayDescription = (descriptions , price)=> {
  return;
 }
 
+const sortData = () => {
+  // Sort data based on published date
+  const sortedData = data.data.tools.sort((a, b) => {
+    const dateA = new Date(a.published_in);
+    const dateB = new Date(b.published_in);
+    return dateB - dateA;
+  });
+  displayData(sortedData, dataLimit);
+};
 
 
 
